@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../App.css';
 
 class Login extends Component {
@@ -44,6 +45,12 @@ class Login extends Component {
         >
           Play
         </button>
+        <Link
+          data-testid="btn-settings"
+          to="/settings"
+        >
+          Configuraçôes
+        </Link>
       </div>
     );
   }
