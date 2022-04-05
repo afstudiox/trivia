@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
+import PropTypes from 'prop-types';
 
 class Login extends Component {
   constructor() {
@@ -17,6 +18,7 @@ class Login extends Component {
   }
 
   render() {
+    const { history } = this.props;
     return (
       <div className="container col">
         <label htmlFor="username">
@@ -41,6 +43,7 @@ class Login extends Component {
           type="button"
           data-testid="btn-play"
           disabled={ this.handleDisable() }
+          onClick={ history.push('/questions') }
         >
           Play
         </button>
@@ -48,4 +51,9 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
 export default Login;
