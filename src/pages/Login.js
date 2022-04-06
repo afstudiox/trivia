@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../App.css';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { thunkGetToken } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -17,8 +19,13 @@ class Login extends Component {
     return !(username.length && validEmail.test(email));
   }
 
+  handleClick = async () => {
+    const { thunkGetSaveTokenDispatch, history } = this.props;
+    await thunkGetSaveTokenDispatch();
+    history.push('/questions');
+  }
+
   render() {
-    const { history } = this.props;
     return (
       <div className="container col">
         <label htmlFor="username">
@@ -39,21 +46,26 @@ class Login extends Component {
             onChange={ (event) => this.setState({ email: event.target.value }) }
           />
         </label>
-        <button
-          type="button"
-          data-testid="btn-play"
-          disabled={ this.handleDisable() }
-          onClick={ history.push('/questions') }
-        >
-          Play
-        </button>
+        <Link to="/question" data-testid="button-start-quiz">
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.handleDisable() }
+            onClick={ <Link to="/questions" /> }
+          >
+            Play
+          </button>
+          <button type="button" onClick={ this.handleClick }>
+            click
+          </button>
+        </Link>
       </div>
     );
   }
 }
 
-Login.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any).isRequired,
-};
+const mapDispatchToProps = (dispatch) => ({
+  thunkGetSaveTokenDispatch: () => dispatch(thunkGetToken()),
+});
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
