@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { thunkGetToken } from '../redux/actions';
 import Header from './Header';
 
 class Questions extends Component {
@@ -7,9 +9,12 @@ class Questions extends Component {
       <div className="question">
         <Header />
       </div>
-
     );
   }
 }
 
-export default Questions;
+const mapDispatchToProps = (dispatch) => ({
+  thunkGetTokenDispatch: () => dispatch(thunkGetToken()),
+});
+
+export default connect(null, mapDispatchToProps)(Questions);

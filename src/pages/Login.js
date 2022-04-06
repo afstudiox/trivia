@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import loginHeader, { thunkGetToken } from '../redux/actions';
+
 import '../App.css';
-import loginHeader from '../redux/actions/index';
 
 class Login extends Component {
   constructor() {
@@ -20,9 +21,16 @@ class Login extends Component {
     return !(username.length && validEmail.test(email));
   }
 
-  render() {
-    const { loginSucess } = this.props;
+  handleClick = async () => {
+    const { thunkGetSaveTokenDispatch, history, loginSucess } = this.props;
     const { username, email } = this.state;
+    await thunkGetSaveTokenDispatch();
+    // retirei essa chamada de função abaixo do onclick
+    loginSucess(username, email);
+    history.push('/questions');
+  }
+
+  render() {
     return (
       <div className="container col">
         <label htmlFor="username">
@@ -48,7 +56,8 @@ class Login extends Component {
             type="button"
             data-testid="btn-play"
             disabled={ this.handleDisable() }
-            onClick={ () => loginSucess(username, email) }
+            onClick={ this.handleClick }
+
           >
             Play
           </button>
@@ -65,10 +74,13 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  thunkGetSaveTokenDispatch: () => dispatch(thunkGetToken()),
   loginSucess: (username, email) => dispatch(loginHeader(username, email)),
 });
 
 Login.propTypes = {
+  thunkGetSaveTokenDispatch: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
   loginSucess: PropTypes.func.isRequired,
 };
 
