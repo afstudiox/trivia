@@ -1,9 +1,6 @@
 import { REQUEST, SUCCESS, ERROR } from '../actions';
 
-const initialState = {
-  token: {},
-  error: '',
-};
+const initialState = '';
 
 const token = (state = initialState, action) => {
   switch (action.type) {
@@ -13,10 +10,7 @@ const token = (state = initialState, action) => {
     };
 
   case SUCCESS:
-    return {
-      ...state,
-      token: action.data.token,
-    };
+    return action.data.token;
 
   case ERROR:
     return {
