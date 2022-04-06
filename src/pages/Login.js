@@ -27,6 +27,8 @@ class Login extends Component {
     await thunkGetSaveTokenDispatch();
     // retirei essa chamada de função abaixo do onclick
     await loginSucess(username, email);
+    const { token } = this.props;
+    console.log(token);
     history.push('/questions');
   }
 
@@ -73,6 +75,10 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  token: state.token,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   thunkGetSaveTokenDispatch: () => dispatch(thunkGetToken()),
   loginSucess: (username, email) => dispatch(loginHeader(username, email)),
@@ -84,4 +90,4 @@ Login.propTypes = {
   loginSucess: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
