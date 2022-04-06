@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import loginHeader, { thunkGetToken } from '../redux/actions';
+import { loginHeader, thunkGetToken } from '../redux/actions';
 
 import '../App.css';
 
@@ -26,7 +26,7 @@ class Login extends Component {
     const { username, email } = this.state;
     await thunkGetSaveTokenDispatch();
     // retirei essa chamada de função abaixo do onclick
-    loginSucess(username, email);
+    await loginSucess(username, email);
     history.push('/questions');
   }
 
