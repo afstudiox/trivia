@@ -8,7 +8,7 @@ import Questions from './pages/Questions';
 function App() {
   return (
     <Switch>
-      <Route exact path="/question" component={ Questions } />
+      <Route exact path="/questions" component={ Questions } />
       <Route exact path="/" component={ Login } />
       <Route exact path="/settings" component={ Settings } />
     </Switch>
