@@ -1,7 +1,7 @@
 import { REQUEST, SUCCESS, ERROR } from '../actions';
 
 const initialState = {
-  token: '',
+  token: {},
   error: '',
 };
 
@@ -14,6 +14,7 @@ const token = (state = initialState, action) => {
 
   case SUCCESS:
     return {
+      ...state,
       token: action.data.token,
     };
 

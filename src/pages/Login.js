@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { thunkGetToken } from '../redux/actions';
 
 class Login extends Component {
@@ -51,12 +52,9 @@ class Login extends Component {
             type="button"
             data-testid="btn-play"
             disabled={ this.handleDisable() }
-            onClick={ <Link to="/questions" /> }
+            onClick={ this.handleClick }
           >
             Play
-          </button>
-          <button type="button" onClick={ this.handleClick }>
-            click
           </button>
         </Link>
       </div>
@@ -67,5 +65,10 @@ class Login extends Component {
 const mapDispatchToProps = (dispatch) => ({
   thunkGetSaveTokenDispatch: () => dispatch(thunkGetToken()),
 });
+
+Login.propTypes = {
+  thunkGetSaveTokenDispatch: PropTypes.func.isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -3,11 +3,6 @@ import { connect } from 'react-redux';
 import { thunkGetToken } from '../redux/actions';
 
 class Questions extends Component {
-  // componentDidMount() {
-  //   const { thunkGetTokenDispatch } = this.props;
-  //   thunkGetTokenDispatch();
-  // }
-
   render() {
     return (
       <div>Questions</div>
