@@ -1,6 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import loginHeader from '../redux/actions/index';
 
 class Login extends Component {
   constructor() {
@@ -18,10 +21,12 @@ class Login extends Component {
   }
 
   render() {
+    const { loginSucess } = this.props;
+    const { username, email } = this.state;
     return (
       <div className="container col">
         <label htmlFor="username">
-          Username
+          Username:
           <input
             id="username"
             type="text"
@@ -30,7 +35,7 @@ class Login extends Component {
           />
         </label>
         <label htmlFor="email">
-          Email
+          Email:
           <input
             id="email"
             type="email"
@@ -38,14 +43,18 @@ class Login extends Component {
             onChange={ (event) => this.setState({ email: event.target.value }) }
           />
         </label>
-        <button
-          type="button"
-          data-testid="btn-play"
-          disabled={ this.handleDisable() }
-        >
-          Play
-        </button>
-        <Link
+
+        <Link to="/question" data-testid="button-start-quiz">
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.handleDisable() }
+            onClick={ () => loginSucess(username, email) }
+          >
+            Play
+          </button>
+        </Link>
+         <Link
           data-testid="btn-settings"
           to="/settings"
         >
@@ -55,4 +64,13 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+
+const mapDispatchToProps = (dispatch) => ({
+  loginSucess: (username, email) => dispatch(loginHeader(username, email)),
+});
+
+Login.propTypes = {
+  loginSucess: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
