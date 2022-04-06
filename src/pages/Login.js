@@ -26,7 +26,7 @@ class Login extends Component {
     return (
       <div className="container col">
         <label htmlFor="username">
-          Username
+          Username:
           <input
             id="username"
             type="text"
@@ -35,7 +35,7 @@ class Login extends Component {
           />
         </label>
         <label htmlFor="email">
-          Email
+          Email:
           <input
             id="email"
             type="email"
