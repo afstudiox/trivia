@@ -43,7 +43,6 @@ class Login extends Component {
             onChange={ (event) => this.setState({ email: event.target.value }) }
           />
         </label>
-
         <Link to="/question" data-testid="button-start-quiz">
           <button
             type="button"
@@ -54,7 +53,7 @@ class Login extends Component {
             Play
           </button>
         </Link>
-         <Link
+        <Link
           data-testid="btn-settings"
           to="/settings"
         >
