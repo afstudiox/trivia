@@ -1,5 +1,9 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import '../App.css';
+import loginHeader from '../redux/actions/index';
 
 class Login extends Component {
   constructor() {
@@ -17,6 +21,8 @@ class Login extends Component {
   }
 
   render() {
+    const { loginSucess } = this.props;
+    const { username, email } = this.state;
     return (
       <div className="container col">
         <label htmlFor="username">
@@ -37,15 +43,27 @@ class Login extends Component {
             onChange={ (event) => this.setState({ email: event.target.value }) }
           />
         </label>
-        <button
-          type="button"
-          data-testid="btn-play"
-          disabled={ this.handleDisable() }
-        >
-          Play
-        </button>
+        <Link to="/question" data-testid="button-start-quiz">
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.handleDisable() }
+            onClick={ () => loginSucess(username, email) }
+          >
+            Play
+          </button>
+        </Link>
       </div>
     );
   }
 }
-export default Login;
+
+const mapDispatchToProps = (dispatch) => ({
+  loginSucess: (username, email) => dispatch(loginHeader(username, email)),
+});
+
+Login.propTypes = {
+  loginSucess: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
