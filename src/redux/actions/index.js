@@ -18,6 +18,12 @@ export const failedToken = (error) => ({
   error,
 });
 
+export const loginHeader = (name, gravatarEmail) => ({
+  type: 'LOGIN',
+  name,
+  gravatarEmail,
+});
+
 export const thunkGetToken = () => async (dispatch) => {
   dispatch(requestToken());
   try {

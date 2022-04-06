@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { thunkGetToken } from '../redux/actions';
+import Header from './Header';
 
 class Questions extends Component {
   render() {
     return (
-      <div>Questions</div>
+      <div className="question">
+        <Header />
+      </div>
     );
   }
 }
