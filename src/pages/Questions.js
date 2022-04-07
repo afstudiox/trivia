@@ -31,8 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Questions.propTypes = {
   thunkGetSaveQuestionsDispatch: PropTypes.func.isRequired,
-  token: PropTypes.func.isRequired,
+  token: PropTypes.string.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
-// gettokenapi
-// getquestionsapi
