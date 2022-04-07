@@ -26,9 +26,9 @@ export const loginHeader = (name, gravatarEmail) => ({
   gravatarEmail,
 });
 
-export const successQuestion = (data) => ({
+export const successQuestion = (questions) => ({
   type: 'SUCCESS_QUESTIONS',
-  data,
+  questions,
 });
 
 export const thunkGetToken = () => async (dispatch) => {
@@ -44,8 +44,9 @@ export const thunkGetToken = () => async (dispatch) => {
 export const thunkGetQuestion = () => async (dispatch) => {
   dispatch(requestToken());
   try {
-    const data = await getAnswers();
-    dispatch(successQuestion(data));
+    const tokenForRequest = await getToken();
+    const dataResults = await getAnswers(tokenForRequest.token);
+    dispatch(successQuestion(dataResults.results));
   } catch (error) {
     dispatch(failedToken(error));
   }

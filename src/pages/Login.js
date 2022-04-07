@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginHeader, thunkGetToken } from '../redux/actions';
-
 import '../App.css';
+import { loginHeader, thunkGetToken } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -22,13 +21,12 @@ class Login extends Component {
   }
 
   handleClick = async () => {
-    const { thunkGetSaveTokenDispatch, history, loginSucess } = this.props;
+    const { thunkGetSaveTokenDispatch,
+      history, loginSucess } = this.props;
     const { username, email } = this.state;
     await thunkGetSaveTokenDispatch();
     // retirei essa chamada de função abaixo do onclick
-    await loginSucess(username, email);
-    const { token } = this.props;
-    console.log(token);
+    loginSucess(username, email);
     history.push('/questions');
   }
 
@@ -53,17 +51,15 @@ class Login extends Component {
             onChange={ (event) => this.setState({ email: event.target.value }) }
           />
         </label>
-        <Link to="/question" data-testid="button-start-quiz">
-          <button
-            type="button"
-            data-testid="btn-play"
-            disabled={ this.handleDisable() }
-            onClick={ this.handleClick }
+        <button
+          type="button"
+          data-testid="btn-play"
+          disabled={ this.handleDisable() }
+          onClick={ this.handleClick }
 
-          >
-            Play
-          </button>
-        </Link>
+        >
+          Play
+        </button>
         <Link
           data-testid="btn-settings"
           to="/settings"
