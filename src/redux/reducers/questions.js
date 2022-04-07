@@ -1,6 +1,13 @@
 import { ERROR, SUCCESS_QUESTIONS } from '../actions';
 
-const initialState = [];
+const initialState = [{
+  type: '',
+  difficulty: '',
+  category: '',
+  question: '',
+  correct_answer: '',
+  incorrect_answers: [],
+}];
 
 const questions = (state = initialState, action) => {
   switch (action.type) {
@@ -11,6 +18,7 @@ const questions = (state = initialState, action) => {
     return {
       ...state,
     };
+
   default:
     return state;
   }
