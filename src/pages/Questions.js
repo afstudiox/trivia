@@ -11,9 +11,15 @@ class Questions extends Component {
   }
 
   render() {
+    console.log(questions);
     return (
       <div className="question">
         <Header />
+        {
+          questions
+            .map((item, index) => (<p key={ index }>{item.incorrect_answers}</p>))
+
+        }
       </div>
     );
   }
@@ -34,5 +40,3 @@ Questions.propTypes = {
   token: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
-// gettokenapi
-// getquestionsapi
