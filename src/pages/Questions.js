@@ -8,23 +8,40 @@ class Questions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      typeQuestion: '',
+      // typeQuestion: '',
+      // category: '',
+      // dificult: '',
+      correctAnswer: '',
+      incorrectAnswer: [],
+      index: 0,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const { token, thunkGetSaveQuestionsDispatch, questions } = this.props;
-    const { typeQuestion } = this.state;
-    await thunkGetSaveQuestionsDispatch(token);
+    thunkGetSaveQuestionsDispatch(token);
     this.setState({
-      typeQuestion: questions[0].type,
+      // typeQuestion: questions[0].type,
+      // category: questions[0].category,
+      // dificult: questions[0].difficulty,
+      correctAnswer: questions[0].correct_answer,
+      incorrectAnswer: questions[0].incorrect_answers,
     });
   }
 
   render() {
     const { questions } = this.props;
-    console.log(questions);
-    // const i = 0;
+    const { correctAnswer, incorrectAnswer, index } = this.state;
+    let allAnswers = [];
+    allAnswers.push(correctAnswer, ...incorrectAnswer);
+    console.log(allAnswers);
+    let question;
+    if (questions) {
+      question = questions[index];
+      const mg = 0.5;
+      allAnswers = [question.correct_answer, ...question
+        .incorrect_answers].sort(() => Math.random() - mg);
+    }
     return (
       <div className="question">
         <Header />
@@ -36,14 +53,19 @@ class Questions extends Component {
             { questions[0].question }
           </p>
         </div>
-        {/* Renderizar as opções de respostas de acordo com o tipo (typeQuestion) */}
         <div className="container-options" data-testid="answer-options">
-          <button type="button" data-test="correct-answer">
-            Option
-          </button>
-          <button type="button" data-test={ `wrong-answer-${i}` }>
-            Option
-          </button>
+          {allAnswers.map((answer, indexOf) => (
+            <button
+              type="button"
+              key={ indexOf }
+              className="option"
+              data-testid={ questions
+                .some((element) => element
+                  .correct_answer === answer) ? 'correct-answer' : 'wrong-answer' }
+            >
+              {answer}
+            </button>
+          ))}
         </div>
       </div>
     );
@@ -64,5 +86,6 @@ Questions.propTypes = {
   thunkGetSaveQuestionsDispatch: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.any).isRequired,
+  category: PropTypes.string.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
