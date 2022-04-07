@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginHeader, thunkGetToken } from '../redux/actions';
-
 import '../App.css';
+import { loginHeader, thunkGetToken } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -22,11 +21,12 @@ class Login extends Component {
   }
 
   handleClick = async () => {
-    const { thunkGetSaveTokenDispatch, history, loginSucess } = this.props;
+    const { thunkGetSaveTokenDispatch,
+      history, loginSucess } = this.props;
     const { username, email } = this.state;
     await thunkGetSaveTokenDispatch();
     // retirei essa chamada de função abaixo do onclick
-    await loginSucess(username, email);
+    loginSucess(username, email);
     history.push('/questions');
   }
 
@@ -51,17 +51,15 @@ class Login extends Component {
             onChange={ (event) => this.setState({ email: event.target.value }) }
           />
         </label>
-        <Link to="/question" data-testid="button-start-quiz">
-          <button
-            type="button"
-            data-testid="btn-play"
-            disabled={ this.handleDisable() }
-            onClick={ this.handleClick }
+        <button
+          type="button"
+          data-testid="btn-play"
+          disabled={ this.handleDisable() }
+          onClick={ this.handleClick }
 
-          >
-            Play
-          </button>
-        </Link>
+        >
+          Play
+        </button>
         <Link
           data-testid="btn-settings"
           to="/settings"
@@ -72,6 +70,10 @@ class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  token: state.token,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   thunkGetSaveTokenDispatch: () => dispatch(thunkGetToken()),
@@ -84,4 +86,4 @@ Login.propTypes = {
   loginSucess: PropTypes.func.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
