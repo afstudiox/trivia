@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { thunkGetQuestion, thunkGetToken } from '../redux/actions';
 import Header from './Header';
+import BtnRanking from './BtnRanking';
 import './Questions.css';
 
 class Questions extends Component {
@@ -94,6 +95,7 @@ class Questions extends Component {
               {answer}
             </button>
           ))}
+          <BtnRanking />
         </div>
       </div>
     );
