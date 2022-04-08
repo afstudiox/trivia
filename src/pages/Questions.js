@@ -38,26 +38,26 @@ class Questions extends Component {
     /* this.validadeColor(); */
   }
 
-  validadeColor = (allAnswers) => {
-    const { colorBorder } = this.state;
-    const { questions } = this.props;
-    let bColor;
-    if (colorBorder) {
-      bColor = allAnswers
-        .forEach((answer) => (questions
-          .some((element) => element.correct_answer === answer) ? 'green' : 'red'));
-    } else {
-      bColor = 'option';
-    }
-    return bColor;
-  }
+  // validadeColor = (allAnswers) => {
+  //   const { colorBorder } = this.state;
+  //   const { questions } = this.props;
+  //   console.log(allAnswers);
+  //   let bColor;
+  //   if (colorBorder) {
+  //     bColor = allAnswers
+  //       .forEach((answer) => (questions
+  //         .some((element) => element.correct_answer === answer) ? 'green' : 'red'));
+  //   } else {
+  //     bColor = 'option';
+  //   }
+  //   return bColor;
+  // }
 
   render() {
     const { questions } = this.props;
-    const { correctAnswer, incorrectAnswer, index } = this.state;
+    const { correctAnswer, incorrectAnswer, index, colorBorder } = this.state;
     let allAnswers = [];
     allAnswers.push(correctAnswer, ...incorrectAnswer);
-    console.log(allAnswers);
     let question;
     if (questions) {
       question = questions[index];
@@ -82,7 +82,10 @@ class Questions extends Component {
             <button
               type="button"
               key={ indexOf }
-              className={ this.validadeColor(allAnswers) }
+              className={ colorBorder && (
+                questions
+                  .some((element) => element.correct_answer === answer)
+                  ? 'green' : 'red') }
               onClick={ this.handleClick }
               data-testid={ questions
                 .some((element) => element
