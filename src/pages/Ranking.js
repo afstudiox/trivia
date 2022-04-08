@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BtnHome from './BtnHome';
+import BtnHome from '../components/BtnHome';
 
 class Ranking extends Component {
   render() {

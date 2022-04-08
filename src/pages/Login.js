@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginHeader, thunkGetToken } from '../redux/actions';
 import '../css/login.css';
-
+import { loginHeader, thunkGetToken } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -53,17 +52,14 @@ class Login extends Component {
               onChange={ (event) => this.setState({ email: event.target.value }) }
             />
           </label>
-          <Link to="/question" data-testid="button-start-quiz">
-            <button
-              type="button"
-              data-testid="btn-play"
-              disabled={ this.handleDisable() }
-              onClick={ this.handleClick }
-  
-            >
-              Play
-            </button>
-          </Link>
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.handleDisable() }
+            onClick={ this.handleClick }
+          >
+            Play
+          </button>
           <Link
             data-testid="btn-settings"
             to="/settings"

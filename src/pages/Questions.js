@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import BtnRanking from '../components/BtnRanking';
+import Header from '../components/Header';
 import { thunkGetQuestion, thunkGetToken } from '../redux/actions';
-import Header from './Header';
-import BtnRanking from './BtnRanking';
 import './Questions.css';
 
 class Questions extends Component {
@@ -34,30 +34,11 @@ class Questions extends Component {
   }
 
   handleClick = () => {
-    const { questions } = this.props;
-    const { index } = this.state;
-    console.log(questions[index + 1].correct_answer);
     this.setState({
       colorBorder: true,
       btnNext: true,
     });
-    /* this.validadeColor(); */
   }
-
-  // validadeColor = (allAnswers) => {
-  //   const { colorBorder } = this.state;
-  //   const { questions } = this.props;
-  //   console.log(allAnswers);
-  //   let bColor;
-  //   if (colorBorder) {
-  //     bColor = allAnswers
-  //       .forEach((answer) => (questions
-  //         .some((element) => element.correct_answer === answer) ? 'green' : 'red'));
-  //   } else {
-  //     bColor = 'option';
-  //   }
-  //   return bColor;
-  // }
 
   render() {
     const { questions } = this.props;
@@ -131,6 +112,5 @@ Questions.propTypes = {
   thunkGetSaveQuestionsDispatch: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.any).isRequired,
-  category: PropTypes.string.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
