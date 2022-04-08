@@ -1,12 +1,12 @@
-const getAnswersURL = `https://opentdb.com/api.php?amount=5&token=${token}`;
-
-const getAnswers = () => (
-  fetch(getAnswersURL)
-    .then((response) => (
-      response
-        .json()
-        .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
-    ))
-);
+async function getAnswers(token) {
+  try {
+    const getTokenURL = `https://opentdb.com/api.php?amount=5&token=${token}`;
+    const response = await fetch(getTokenURL);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
 
 export default getAnswers;
