@@ -17,6 +17,7 @@ class Questions extends Component {
       incorrectAnswer: [],
       index: 0,
       colorBorder: false,
+      btnNext: false,
     };
   }
 
@@ -33,8 +34,12 @@ class Questions extends Component {
   }
 
   handleClick = () => {
+    const { questions } = this.props;
+    const { index } = this.state;
+    console.log(questions[index + 1].correct_answer);
     this.setState({
       colorBorder: true,
+      btnNext: true,
     });
     /* this.validadeColor(); */
   }
@@ -56,7 +61,8 @@ class Questions extends Component {
 
   render() {
     const { questions } = this.props;
-    const { correctAnswer, incorrectAnswer, index, colorBorder } = this.state;
+    const { correctAnswer, incorrectAnswer, index, colorBorder,
+      btnNext } = this.state;
     let allAnswers = [];
     allAnswers.push(correctAnswer, ...incorrectAnswer);
     let question;
@@ -97,6 +103,15 @@ class Questions extends Component {
           ))}
           <BtnRanking />
         </div>
+        <button
+          type="button"
+          className={ btnNext ? 'btn-next' : 'btn-next-disabled' }
+          disabled={ !btnNext }
+          onClick={ this.handleClick }
+          data-testid="btn-next"
+        >
+          Next
+        </button>
       </div>
     );
   }
