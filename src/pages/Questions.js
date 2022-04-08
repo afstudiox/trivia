@@ -38,68 +38,89 @@ class Questions extends Component {
     /* this.validadeColor(); */
   }
 
-  // validadeColor = (allAnswers) => {
-  //   const { colorBorder } = this.state;
-  //   const { questions } = this.props;
-  //   console.log(allAnswers);
-  //   let bColor;
-  //   if (colorBorder) {
-  //     bColor = allAnswers
-  //       .forEach((answer) => (questions
-  //         .some((element) => element.correct_answer === answer) ? 'green' : 'red'));
-  //   } else {
-  //     bColor = 'option';
-  //   }
-  //   return bColor;
-  // }
+   scoreBoard = (value) => {
+     const { difficulty, time, getScoreDispatch } = this.props;
+     const { correctAnswer } = this.state;
+     const valueMax = 3;
+     const pointsAdd = 10;
+     let valueDifficulty = 0;
+     switch (difficulty) {
+     case 'easy':
+       valueDifficulty = 1;
+       break;
+     case 'medium':
+       valueDifficulty = 2;
+       break;
+     default:
+       valueDifficulty = valueMax;
+     }
+     if (value === correctAnswer) {
+       const totalPoints = pointsAdd + (time * valueDifficulty);
+       getScoreDispatch(totalPoints);
+     }
+   }
 
-  render() {
-    const { questions } = this.props;
-    const { correctAnswer, incorrectAnswer, index, colorBorder } = this.state;
-    let allAnswers = [];
-    allAnswers.push(correctAnswer, ...incorrectAnswer);
-    let question;
-    if (questions) {
-      question = questions[index];
-      const mg = 0.5;
-      allAnswers = [question.correct_answer, ...question
-        .incorrect_answers].sort(() => Math.random() - mg);
-    }
+   // validadeColor = (allAnswers) => {
+   //   const { colorBorder } = this.state;
+   //   const { questions } = this.props;
+   //   console.log(allAnswers);
+   //   let bColor;
+   //   if (colorBorder) {
+   //     bColor = allAnswers
+   //       .forEach((answer) => (questions
+   //         .some((element) => element.correct_answer === answer) ? 'green' : 'red'));
+   //   } else {
+   //     bColor = 'option';
+   //   }
+   //   return bColor;
+   // }
 
-    return (
-      <div className="question">
-        <Header />
-        <div className="container-question">
-          <p data-testid="question-category">
-            { questions[0].category }
-          </p>
-          <p data-testid="question-text">
-            { questions[0].question }
-          </p>
-        </div>
-        <div className="container-options" data-testid="answer-options">
-          {allAnswers.map((answer, indexOf) => (
-            <button
-              type="button"
-              key={ indexOf }
-              className={ colorBorder && (
-                questions
-                  .some((element) => element.correct_answer === answer)
-                  ? 'green' : 'red') }
-              onClick={ this.handleClick }
-              data-testid={ questions
-                .some((element) => element
-                  .correct_answer === answer) ? 'correct-answer' : 'wrong-answer' }
-            >
-              {answer}
-            </button>
-          ))}
-        </div>
-      </div>
-    );
-  }
+   render() {
+     const { questions } = this.props;
+     const { correctAnswer, incorrectAnswer, index, colorBorder } = this.state;
+     let allAnswers = [];
+     allAnswers.push(correctAnswer, ...incorrectAnswer);
+     let question;
+     if (questions) {
+       question = questions[index];
+       const mg = 0.5;
+       allAnswers = [question.correct_answer, ...question
+         .incorrect_answers].sort(() => Math.random() - mg);
+     }
+
+     return (
+       <div className="question">
+         <Header />
+         <div className="container-question">
+           <p data-testid="question-category">
+             { questions[0].category }
+           </p>
+           <p data-testid="question-text">
+             { questions[0].question }
+           </p>
+         </div>
+         <div className="container-options" data-testid="answer-options">
+           {allAnswers.map((answer, indexOf) => (
+             <button
+               type="button"
+               key={ indexOf }
+               className={ colorBorder && (
+                 questions
+                   .some((element) => element.correct_answer === answer)
+                   ? 'green' : 'red') }
+               onClick={ this.handleClick }
+               data-testid={ questions
+                 .some((element) => element
+                   .correct_answer === answer) ? 'correct-answer' : 'wrong-answer' }
+             >
+               {answer}
+             </button>
+           ))}
+         </div>
+       </div>
+     );
+   }
 }
-
 const mapStateToProps = (state) => ({
   token: state.token,
   questions: state.questions,
@@ -115,5 +136,8 @@ Questions.propTypes = {
   token: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.any).isRequired,
   category: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  time: PropTypes.number.isRequired,
+  getScoreDispatch: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
