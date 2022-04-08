@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { thunkGetQuestion, thunkGetToken } from '../redux/actions';
 import Header from './Header';
+import './Questions.css';
 
 class Questions extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Questions extends Component {
       correctAnswer: '',
       incorrectAnswer: [],
       index: 0,
+      colorBorder: false,
     };
   }
 
@@ -29,6 +31,27 @@ class Questions extends Component {
     });
   }
 
+  handleClick = () => {
+    this.setState({
+      colorBorder: true,
+    });
+    /* this.validadeColor(); */
+  }
+
+  validadeColor = (allAnswers) => {
+    const { colorBorder } = this.state;
+    const { questions } = this.props;
+    let bColor;
+    if (colorBorder) {
+      bColor = allAnswers
+        .forEach((answer) => (questions
+          .some((element) => element.correct_answer === answer) ? 'green' : 'red'));
+    } else {
+      bColor = 'option';
+    }
+    return bColor;
+  }
+
   render() {
     const { questions } = this.props;
     const { correctAnswer, incorrectAnswer, index } = this.state;
@@ -42,6 +65,7 @@ class Questions extends Component {
       allAnswers = [question.correct_answer, ...question
         .incorrect_answers].sort(() => Math.random() - mg);
     }
+
     return (
       <div className="question">
         <Header />
@@ -58,7 +82,8 @@ class Questions extends Component {
             <button
               type="button"
               key={ indexOf }
-              className="option"
+              className={ this.validadeColor(allAnswers) }
+              onClick={ this.handleClick }
               data-testid={ questions
                 .some((element) => element
                   .correct_answer === answer) ? 'correct-answer' : 'wrong-answer' }
