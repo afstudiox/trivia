@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginHeader, thunkGetToken } from '../redux/actions';
+import '../css/login.css';
 
 import '../App.css';
 
@@ -32,42 +33,44 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container col">
-        <label htmlFor="username">
-          Username:
-          <input
-            id="username"
-            type="text"
-            data-testid="input-player-name"
-            onChange={ (event) => this.setState({ username: event.target.value }) }
-          />
-        </label>
-        <label htmlFor="email">
-          Email:
-          <input
-            id="email"
-            type="email"
-            data-testid="input-gravatar-email"
-            onChange={ (event) => this.setState({ email: event.target.value }) }
-          />
-        </label>
-        <Link to="/question" data-testid="button-start-quiz">
-          <button
-            type="button"
-            data-testid="btn-play"
-            disabled={ this.handleDisable() }
-            onClick={ this.handleClick }
-
+      <div className="container">
+        <div className="container-login col">
+          <label htmlFor="username">
+            Username:
+            <input
+              id="username"
+              type="text"
+              data-testid="input-player-name"
+              onChange={ (event) => this.setState({ username: event.target.value }) }
+            />
+          </label>
+          <label htmlFor="email">
+            Email:
+            <input
+              id="email"
+              type="email"
+              data-testid="input-gravatar-email"
+              onChange={ (event) => this.setState({ email: event.target.value }) }
+            />
+          </label>
+          <Link to="/question" data-testid="button-start-quiz">
+            <button
+              type="button"
+              data-testid="btn-play"
+              disabled={ this.handleDisable() }
+              onClick={ this.handleClick }
+  
+            >
+              Play
+            </button>
+          </Link>
+          <Link
+            data-testid="btn-settings"
+            to="/settings"
           >
-            Play
-          </button>
-        </Link>
-        <Link
-          data-testid="btn-settings"
-          to="/settings"
-        >
-          Configuraçôes
-        </Link>
+            Configuraçôes
+          </Link>
+        </div>
       </div>
     );
   }
