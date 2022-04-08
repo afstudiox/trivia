@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Header from './Header';
+import Header from '../components/Header';
 
 class Feedback extends Component {
   componentDidMount() {
