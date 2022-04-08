@@ -4,6 +4,7 @@ import './App.css';
 import Login from './pages/Login';
 import Settings from './pages/Settings';
 import Questions from './pages/Questions';
+import Ranking from './pages/Ranking';
 import Feedback from './pages/Feedback';
 
 function App() {
@@ -11,8 +12,9 @@ function App() {
     <Switch>
       <Route exact path="/feedback" component={ Feedback } />
       <Route exact path="/questions" component={ Questions } />
-      <Route exact path="/" component={ Login } />
       <Route exact path="/settings" component={ Settings } />
+      <Route exact path="/ranking" component={ Ranking } />
+      <Route exact path="/" component={ Login } />
     </Switch>
   );
 }
