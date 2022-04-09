@@ -1,30 +1,29 @@
 /* css glocal é default */
 :root {
+ 
+  --accent-color1: #f9bc60;
 
-  --main-color: #ececec;
+  --accent-color2: #e16162;;
 
-  --secondary-color: #181425;
+  --green1: #001e1d;
 
-  --accent-color: #12e497;
+  --green2: #0f3433;
 
-  --gray1: #b2b2b2;
+  --green3: #004643;
 
-  --gray2: #474747;
-
-  --darkMode: #282936;
-
-  --azul: #006dfb;
-
-  --roxo: #41197f;
-
+  --green4: #abd1c6;
+  
+  --light: #fffffe;
+  
 }
 
 ::selection {
-  background: var(--accent-color);
+  background: var(--accent-color2);
 }
 
 * {
   box-sizing: border-box;
+  background-color: var(--green2);
   margin: 0;
   padding: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -48,3 +47,4 @@
   align-self: center;
   height: 100vh;
 }
+
