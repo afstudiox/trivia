@@ -85,17 +85,19 @@ class Questions extends Component {
                 {answer}
               </button>
             ))}
-            <BtnRanking />
           </div>
-          <button
-            type="button"
-            className={ btnNext ? 'btn-next' : 'btn-next-disabled' }
-            disabled={ !btnNext }
-            onClick={ this.handleClick }
-            data-testid="btn-next"
-          >
-            Next
-          </button>
+          <div className="container-buttons">
+            <BtnRanking />
+            <button
+              type="button"
+              className={ btnNext ? 'btn-next' : 'btn-next-disabled' }
+              disabled={ !btnNext }
+              onClick={ this.handleClick }
+              data-testid="btn-next"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     );
