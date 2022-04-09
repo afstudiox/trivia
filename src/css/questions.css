@@ -1,5 +1,47 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* componentes de lógica */
+.red {
+  border: 3px solid rgb(255, 0, 00);
+}
+
+.green {
+  border: 3px solid rgb(6, 240, 15);
+}
+
+.btn-next-disabled {
+  display: none;
+}
+
+.container-questions-aswers {
+  justify-content: space-evenly;
+  padding: 50px;
+  width: 100%;
+}
+
+.container-question {
+  background-color: var(--light);
+  border-radius: 15px;
+  height: 30vh;
+  padding: 24px;
+  text-align: center;
+  width: 50%;
+}
+
+.container-question h2 {
+  background-color: var(--green4);
+  border-radius: 10px;
+  color: var(--green1);
+  font-size: 20px;
+  height: 70px;
+  padding: 24px;
+}
+
+.container-question p {
+  color: var(--green1);
+  font-size: 18px;
+  padding-top: 50px;
+}
+
+.container-aswer {
+  background-color: var(--light);
+  width: 50%;
 }
