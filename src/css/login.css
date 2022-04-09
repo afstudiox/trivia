@@ -1,3 +1,7 @@
+body {
+  background-color: var(--green3);
+}
+
 .container-login {
   align-items: center;
   background-color: var(--light);
@@ -22,7 +26,7 @@
   border-radius: 4px;
   color: var(--green1);
   display: block;
-  font-size: 20px;
+  font-size: 16px;
   margin-bottom: 12px;
   margin-top: 4px;
   padding: 8px;
