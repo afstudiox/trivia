@@ -61,7 +61,7 @@ class Questions extends Component {
         <div className="container-questions-aswers row">
           <div className="container-question col">
             {/* troquei o elemento da categoria de p para h2 */}
-            <h2 data-testid="question-category">
+            <h2 className="col" data-testid="question-category">
               { questions[0].category }
             </h2>
             <p data-testid="question-text">
