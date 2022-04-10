@@ -1,0 +1,44 @@
+.container-page-ranking {
+  align-items: center;
+  justify-content: center;
+}
+
+.container-page-ranking h1 {
+  color: var(--green4);
+  margin-top: 50px;
+}
+
+.container-page-ranking button {
+  background-color: var(--green1);
+  border: none;
+  border-radius: 8px;
+  color: var(--light);
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 8px;
+  width: 150px;
+}
+
+.container-page-ranking button:hover {
+  background-color: var(--accent-color1);
+  color: var(--green1);
+}
+
+.container-ranking {
+  margin: 20px;
+  width: 70%;
+}
+
+.player {
+  background-color: var(--green4);
+  border-radius: 10px;
+  justify-content: left;
+  margin: 10px auto;
+  padding: 20px;
+  width: 30%;
+}
+
+.player img {
+  margin-right: 10px;
+}
