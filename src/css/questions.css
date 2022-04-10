@@ -61,5 +61,22 @@
 }
 
 .container-buttons {
+  align-items: center;
   width: 100px;
+}
+
+.container-buttons button {
+  align-items: center;
+  background-color: var(--green1);
+  border: none;
+  border-radius: 8px;
+  color: var(--light);
+  height: 40px;
+  margin-top: 20px;
+  width: 100px;
+}
+
+.container-buttons button:hover {
+  background-color: var(--accent-color1);
+  border: none;
 }

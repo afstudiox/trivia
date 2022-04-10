@@ -86,7 +86,7 @@ class Questions extends Component {
               </button>
             ))}
           </div>
-          <div className="container-buttons">
+          <div className="container-buttons col">
             <BtnRanking />
             <button
               type="button"
