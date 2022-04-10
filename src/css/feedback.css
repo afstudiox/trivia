@@ -1,0 +1,22 @@
+.message-container {
+  color: var(--green4);
+  height: 300px;
+  margin: 0 auto;
+  text-align: center;
+  width: 60%;
+}
+
+.message-container h2 {
+  font-size: 32px;
+  padding-top: 50px;
+}
+
+.message-container p {
+  font-size: 18px;
+  margin-top: 50px;
+}
+
+.message-container p span {
+  background-color: var(--green3);
+}
+

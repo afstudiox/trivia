@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import '../css/feedback.css';
 
 class Feedback extends Component {
   componentDidMount() {
@@ -23,14 +24,26 @@ render() {
   const minimumScore = 3;
   const message = importScore >= minimumScore ? 'Well Done!' : 'Could be better...';
   return (
-    <div>
+    <div className="container-page">
       <header>
         <Header />
       </header>
-      <div className="message-container">
-        <h1 data-testid="feedback-text">{message}</h1>
-        <p data-testid="feedback-total-score">{importScore}</p>
-        <p data-testid="feedback-total-question">{assertions}</p>
+      <div className="message-container" col>
+        <h2 data-testid="feedback-text">{message}</h2>
+        <p data-testid="feedback-total-score">
+          Você acertou
+          {' '}
+          {importScore}
+          {' '}
+          questões!
+        </p>
+        <p data-testid="feedback-total-question">
+          Um total de
+          {' '}
+          {assertions}
+          {' '}
+          pontos
+        </p>
       </div>
     </div>
   );
