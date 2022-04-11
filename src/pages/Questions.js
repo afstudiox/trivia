@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BtnRanking from '../components/BtnRanking';
 import Header from '../components/Header';
-import { thunkGetQuestion, thunkGetToken } from '../redux/actions';
 // import './Questions.css';
 import '../css/questions.css';
+import { getScore, thunkGetQuestion, thunkGetToken } from '../redux/actions';
 
 class Questions extends Component {
   constructor(props) {
@@ -19,6 +19,9 @@ class Questions extends Component {
       index: 0,
       colorBorder: false,
       btnNext: false,
+      loading: true,
+      timer: 30,
+      allCorrect: 0,
     };
   }
 
@@ -31,20 +34,52 @@ class Questions extends Component {
       // dificult: questions[0].difficulty,
       correctAnswer: questions[0].correct_answer,
       incorrectAnswer: questions[0].incorrect_answers,
+      loading: false,
     });
   }
 
-  handleClick = () => {
+  scoreBoard = (question, timer, difficulty) => {
+    const { myScore, getScoreDispatch, answerCorrect } = this.props;
+    const { correctAnswer, allCorrect } = this.state;
+    const valueMax = 3;
+    const pointsAdd = 10;
+    let valueDifficulty = 0;
+    if (difficulty === 'easy') valueDifficulty = 1;
+    if (difficulty === 'medium') valueDifficulty = 2;
+    if (difficulty === 'hard') valueDifficulty = valueMax;
+    if (question === correctAnswer) {
+      getScoreDispatch(myScore + pointsAdd + (timer * valueDifficulty));
+      answerCorrect(allCorrect + 1);
+    }
+  }
+
+  handleClick = (value) => {
+    const { questions } = this.props;
+    const { index, timer } = this.state;
+    const level = questions[index].difficulty;
     this.setState({
       colorBorder: true,
       btnNext: true,
     });
+    this.scoreBoard(value, timer, level);
+  }
+
+  handleNextQuestion = () => {
+    const { questions, history } = this.props;
+    const { index } = this.state;
+    this.setState({
+      index: index + 1,
+      colorBorder: false,
+    });
+    if (questions.length - 1 === index) {
+      history.push('/feedback');
+    }
   }
 
   render() {
     const { questions } = this.props;
     const { correctAnswer, incorrectAnswer, index, colorBorder,
-      btnNext } = this.state;
+      btnNext, loading } = this.state;
     let allAnswers = [];
     allAnswers.push(correctAnswer, ...incorrectAnswer);
     let question;
@@ -58,47 +93,50 @@ class Questions extends Component {
     return (
       <div className="container-page">
         <Header />
-        <div className="container-questions-aswers row">
-          <div className="container-question col">
-            {/* troquei o elemento da categoria de p para h2 */}
-            <h2 className="col" data-testid="question-category">
-              { questions[0].category }
-            </h2>
-            <p data-testid="question-text">
-              { questions[0].question }
-            </p>
-          </div>
-          <div className="container-aswers col" data-testid="answer-options">
-            {allAnswers.map((answer, indexOf) => (
-              <button
-                type="button"
-                key={ indexOf }
-                className={ colorBorder && (
-                  questions
-                    .some((element) => element.correct_answer === answer)
-                    ? 'green' : 'red') }
-                onClick={ this.handleClick }
-                data-testid={ questions
-                  .some((element) => element
-                    .correct_answer === answer) ? 'correct-answer' : 'wrong-answer' }
-              >
-                {answer}
-              </button>
-            ))}
-          </div>
-          <div className="container-buttons col">
-            <BtnRanking />
-            <button
-              type="button"
-              className={ btnNext ? 'btn-next' : 'btn-next-disabled' }
-              disabled={ !btnNext }
-              onClick={ this.handleClick }
-              data-testid="btn-next"
-            >
-              Next
-            </button>
-          </div>
-        </div>
+        {loading ? <h1>Carregando...</h1>
+          : (
+            <div className="container-questions-aswers row">
+              <div className="container-question col">
+                {/* troquei o elemento da categoria de p para h2 */}
+                <h2 className="col" data-testid="question-category">
+                  { questions[index].category }
+                </h2>
+                <p data-testid="question-text">
+                  { questions[index].question }
+                </p>
+              </div>
+              <div className="container-aswers col" data-testid="answer-options">
+                {allAnswers.map((answer, indexOf) => (
+                  <button
+                    type="button"
+                    key={ indexOf }
+                    className={ colorBorder && (
+                      questions
+                        .some((element) => element.correct_answer === answer)
+                        ? 'green' : 'red') }
+                    onClick={ this.handleClick }
+                    data-testid={ questions
+                      .some((element) => element
+                        .correct_answer === answer) ? 'correct-answer' : 'wrong-answer' }
+                  >
+                    {answer}
+                  </button>
+                ))}
+              </div>
+              <div className="container-buttons col">
+                <BtnRanking />
+                <button
+                  type="button"
+                  className={ btnNext ? 'btn-next' : 'btn-next-disabled' }
+                  disabled={ !btnNext }
+                  onClick={ this.handleNextQuestion }
+                  data-testid="btn-next"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
       </div>
     );
   }
@@ -107,16 +145,27 @@ class Questions extends Component {
 const mapStateToProps = (state) => ({
   token: state.token,
   questions: state.questions,
+  myScore: state.player.score,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   thunkGetTokenDispatch: () => dispatch(thunkGetToken()),
   thunkGetSaveQuestionsDispatch: (questions) => dispatch(thunkGetQuestion(questions)),
+  getScoreDispatch: (score) => dispatch(getScore(score)),
+  answerCorrect: (allCorrect) => dispatch(allCorrect),
 });
 
 Questions.propTypes = {
   thunkGetSaveQuestionsDispatch: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.any).isRequired,
+  category: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  answerCorrect: PropTypes.func.isRequired,
+  myScore: PropTypes.number.isRequired,
+  getScoreDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

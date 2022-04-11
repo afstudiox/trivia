@@ -5,6 +5,7 @@ export const SUCCESS = 'SUCCESS';
 export const REQUEST = 'REQUEST';
 export const ERROR = 'ERROR';
 export const SUCCESS_QUESTIONS = 'SUCCESS_QUESTIONS';
+export const GET_SCORE = 'GET_SCORE';
 
 export const requestToken = () => ({
   type: 'REQUEST',
@@ -29,6 +30,11 @@ export const loginHeader = (name, gravatarEmail) => ({
 export const successQuestion = (questions) => ({
   type: 'SUCCESS_QUESTIONS',
   questions,
+});
+
+export const getScore = (score) => ({
+  type: 'GET_SCORE',
+  score,
 });
 
 export const thunkGetToken = () => async (dispatch) => {
