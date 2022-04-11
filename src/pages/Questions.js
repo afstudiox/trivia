@@ -63,7 +63,7 @@ class Questions extends Component {
     });
     this.scoreBoard(value, timer, level);
   }
-
+  
   handleNextQuestion = () => {
     const { questions, history } = this.props;
     const { index } = this.state;
@@ -161,6 +161,8 @@ Questions.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.any).isRequired,
   category: PropTypes.string.isRequired,
   difficulty: PropTypes.string.isRequired,
+  time: PropTypes.number.isRequired,
+  getScoreDispatch: PropTypes.func.isRequired,
   answerCorrect: PropTypes.func.isRequired,
   myScore: PropTypes.number.isRequired,
   getScoreDispatch: PropTypes.func.isRequired,
