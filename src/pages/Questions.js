@@ -22,6 +22,7 @@ class Questions extends Component {
       loading: true,
       timer: 30,
       allCorrect: 0,
+      buttonDisabledTimer: false,
     };
   }
 
@@ -36,6 +37,7 @@ class Questions extends Component {
       incorrectAnswer: questions[0].incorrect_answers,
       loading: false,
     });
+    this.myTimer();
   }
 
   scoreBoard = (question, timer, difficulty) => {
@@ -52,6 +54,22 @@ class Questions extends Component {
       answerCorrect(allCorrect + 1);
     }
   }
+
+  myTimer = () => {
+    const interval = 1000;
+    const countdonw = setInterval(() => {
+      const { timer } = this.state;
+      this.setState({
+        timer: timer - 1,
+      });
+      if (timer === 1) {
+        this.setState({
+          buttonDisabledTimer: true,
+        });
+        clearInterval(countdonw);
+      }
+    }, interval);
+  };
 
   handleClick = (value) => {
     const { questions } = this.props;
@@ -79,7 +97,7 @@ class Questions extends Component {
   render() {
     const { questions } = this.props;
     const { correctAnswer, incorrectAnswer, index, colorBorder,
-      btnNext, loading } = this.state;
+      btnNext, loading, timer, buttonDisabledTimer } = this.state;
     let allAnswers = [];
     allAnswers.push(correctAnswer, ...incorrectAnswer);
     let question;
@@ -96,6 +114,7 @@ class Questions extends Component {
         {loading ? <h1>Carregando...</h1>
           : (
             <div className="container-questions-aswers row">
+              <span>{timer}</span>
               <div className="container-question col">
                 {/* troquei o elemento da categoria de p para h2 */}
                 <h2 className="col" data-testid="question-category">
@@ -109,6 +128,7 @@ class Questions extends Component {
                 {allAnswers.map((answer, indexOf) => (
                   <button
                     type="button"
+                    disabled={ buttonDisabledTimer }
                     key={ indexOf }
                     className={ colorBorder && (
                       questions
