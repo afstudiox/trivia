@@ -9,7 +9,7 @@ class BtnHome extends Component {
           to="/"
         >
           <button
-            type="submit"
+            type="button"
             data-testid="btn-go-home"
           >
             Home

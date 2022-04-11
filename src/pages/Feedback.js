@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import BtnRanking from '../components/BtnRanking';
 import Header from '../components/Header';
 import '../css/feedback.css';
 
@@ -45,6 +46,7 @@ render() {
           pontos
         </p>
       </div>
+      <BtnRanking />
     </div>
   );
 }
