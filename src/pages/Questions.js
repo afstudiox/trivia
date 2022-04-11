@@ -14,8 +14,8 @@ class Questions extends Component {
       // typeQuestion: '',
       // category: '',
       // dificult: '',
-      correctAnswer: '',
-      incorrectAnswer: [],
+      // correctAnswer: '',
+      // incorrectAnswer: [],
       index: 0,
       colorBorder: false,
       btnNext: false,
@@ -23,41 +23,44 @@ class Questions extends Component {
       timer: 30,
       allCorrect: 0,
       buttonDisabledTimer: false,
+      allAnswers: [],
     };
   }
 
-  componentDidMount() {
-    const { token, thunkGetSaveQuestionsDispatch, questions } = this.props;
-    thunkGetSaveQuestionsDispatch(token);
+  async componentDidMount() {
+    const { token, thunkGetSaveQuestionsDispatch } = this.props;
+    await thunkGetSaveQuestionsDispatch(token);
     this.setState({
       // typeQuestion: questions[0].type,
       // category: questions[0].category,
       // dificult: questions[0].difficulty,
-      correctAnswer: questions[0].correct_answer,
-      incorrectAnswer: questions[0].incorrect_answers,
+      // correctAnswer: questions[0].correct_answer,
+      // incorrectAnswer: questions[0].incorrect_answers,
       loading: false,
     });
     this.myTimer();
+    this.questionsRender();
   }
 
   scoreBoard = (question, timer, difficulty) => {
-    const { myScore, getScoreDispatch, answerCorrect } = this.props;
-    const { correctAnswer, allCorrect } = this.state;
+    const { myScore, getScoreDispatch, questions } = this.props;
+    const { allCorrect, index } = this.state;
+    const correct = questions[index].correct_answer;
     const valueMax = 3;
     const pointsAdd = 10;
     let valueDifficulty = 0;
     if (difficulty === 'easy') valueDifficulty = 1;
     if (difficulty === 'medium') valueDifficulty = 2;
     if (difficulty === 'hard') valueDifficulty = valueMax;
-    if (question === correctAnswer) {
-      getScoreDispatch(myScore + pointsAdd + (timer * valueDifficulty));
-      answerCorrect(allCorrect + 1);
+    if (question === correct) {
+      getScoreDispatch(myScore + pointsAdd + (timer * valueDifficulty), allCorrect + 1);
+      // answerCorrect(allCorrect + 1);
     }
   }
 
-  myTimer = () => {
+  myTimer = async () => {
     const interval = 1000;
-    const countdonw = setInterval(() => {
+    const countdown = setInterval(() => {
       const { timer } = this.state;
       this.setState({
         timer: timer - 1,
@@ -66,20 +69,22 @@ class Questions extends Component {
         this.setState({
           buttonDisabledTimer: true,
         });
-        clearInterval(countdonw);
+        clearInterval(countdown);
       }
     }, interval);
   };
 
-  handleClick = (value) => {
-    const { questions } = this.props;
-    const { index, timer } = this.state;
-    const level = questions[index].difficulty;
+  handleClick = ({ target }) => {
+    // const { questions } = this.props;
+    // const { index, timer } = this.state;
+    // const level = questions[index].difficulty;
     this.setState({
       colorBorder: true,
       btnNext: true,
+      // sortIndex: false,
     });
-    this.scoreBoard(value, timer, level);
+    // this.scoreBoard(value, timer, level);
+    console.log(target.value);
   }
 
   handleNextQuestion = () => {
@@ -88,25 +93,40 @@ class Questions extends Component {
     this.setState({
       index: index + 1,
       colorBorder: false,
+      // sortIndex: true,
     });
     if (questions.length - 1 === index) {
       history.push('/feedback');
     }
+    this.questionsRender();
+  }
+
+  questionsRender = () => {
+    const { questions } = this.props;
+    const { index } = this.state;
+    const incorrect = questions[index].incorrect_answers;
+    const correct = questions[index].correct_answer;
+    this.setState({
+      allAnswers: [...incorrect, correct],
+      index: index + 1,
+    });
   }
 
   render() {
     const { questions } = this.props;
-    const { correctAnswer, incorrectAnswer, index, colorBorder,
-      btnNext, loading, timer, buttonDisabledTimer } = this.state;
-    let allAnswers = [];
+    const { index, colorBorder,
+      btnNext, loading, timer, buttonDisabledTimer, allAnswers } = this.state;
+    /*     let allAnswers = [];
     allAnswers.push(correctAnswer, ...incorrectAnswer);
     let question;
     if (questions) {
       question = questions[index];
       const mg = 0.5;
-      allAnswers = [question.correct_answer, ...question
-        .incorrect_answers].sort(() => Math.random() - mg);
-    }
+      if (sortIndex) {
+        allAnswers = [question.correct_answer, ...question
+          .incorrect_answers].sort(() => Math.random() - mg);
+      }
+    } */
 
     return (
       <div className="container-page">
@@ -172,7 +192,7 @@ const mapDispatchToProps = (dispatch) => ({
   thunkGetTokenDispatch: () => dispatch(thunkGetToken()),
   thunkGetSaveQuestionsDispatch: (questions) => dispatch(thunkGetQuestion(questions)),
   getScoreDispatch: (score) => dispatch(getScore(score)),
-  answerCorrect: (allCorrect) => dispatch(allCorrect),
+  // answerCorrect: (allCorrect) => dispatch(allCorrect),
 });
 
 Questions.propTypes = {
@@ -180,9 +200,9 @@ Questions.propTypes = {
   token: PropTypes.string.isRequired,
   questions: PropTypes.arrayOf(PropTypes.any).isRequired,
   category: PropTypes.string.isRequired,
-  difficulty: PropTypes.string.isRequired,
+  // difficulty: PropTypes.string.isRequired,
   getScoreDispatch: PropTypes.func.isRequired,
-  answerCorrect: PropTypes.func.isRequired,
+  // answerCorrect: PropTypes.func.isRequired,
   myScore: PropTypes.number.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,

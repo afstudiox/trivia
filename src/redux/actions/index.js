@@ -35,6 +35,7 @@ export const successQuestion = (questions) => ({
 export const getScore = (score) => ({
   type: 'GET_SCORE',
   score,
+  // assertions,
 });
 
 export const thunkGetToken = () => async (dispatch) => {
