@@ -51,6 +51,7 @@ body {
 
 .container-login button:hover {
   background-color: var(--accent-color1);
+  color: var(--green1);
 }
 
 .container-login button:disabled {

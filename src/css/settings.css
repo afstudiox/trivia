@@ -1,5 +1,24 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.container-settings {
+  color: var(--green4);
+  height: 300px;
+  margin: 0 auto;
+  padding: 50px 0;
+  text-align: left;
+  width: 40%;
+}
+
+.container-settings label {
+  padding: 20px 0;
+  width: 100%;
+}
+
+.container-settings select {
+  display: block;
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+.container-settings select:focus {
+  background-color: var(--green4);
 }
