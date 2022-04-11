@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import '../App.css';
+import '../css/login.css';
 import { loginHeader, thunkGetToken } from '../redux/actions';
 
 class Login extends Component {
@@ -32,40 +32,41 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container col">
-        <label htmlFor="username">
-          Username:
-          <input
-            id="username"
-            type="text"
-            data-testid="input-player-name"
-            onChange={ (event) => this.setState({ username: event.target.value }) }
-          />
-        </label>
-        <label htmlFor="email">
-          Email:
-          <input
-            id="email"
-            type="email"
-            data-testid="input-gravatar-email"
-            onChange={ (event) => this.setState({ email: event.target.value }) }
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="btn-play"
-          disabled={ this.handleDisable() }
-          onClick={ this.handleClick }
-
-        >
-          Play
-        </button>
-        <Link
-          data-testid="btn-settings"
-          to="/settings"
-        >
-          Configuraçôes
-        </Link>
+      <div className="container">
+        <div className="container-login col">
+          <label htmlFor="username">
+            Username:
+            <input
+              id="username"
+              type="text"
+              data-testid="input-player-name"
+              onChange={ (event) => this.setState({ username: event.target.value }) }
+            />
+          </label>
+          <label htmlFor="email">
+            Email:
+            <input
+              id="email"
+              type="email"
+              data-testid="input-gravatar-email"
+              onChange={ (event) => this.setState({ email: event.target.value }) }
+            />
+          </label>
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.handleDisable() }
+            onClick={ this.handleClick }
+          >
+            Play
+          </button>
+          <Link
+            data-testid="btn-settings"
+            to="/settings"
+          >
+            Configuraçôes
+          </Link>
+        </div>
       </div>
     );
   }

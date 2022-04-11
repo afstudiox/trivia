@@ -1,0 +1,25 @@
+.header-container {
+  align-items: center;
+  background-color: var(--green1);
+  height: 70px;
+  padding: 50px;
+  width: 100%;
+}
+
+.header-container img {
+  border-radius: 50%;
+  height: 50px;
+  margin: 8px;
+}
+
+.header-container-text {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header-container-text p, span {
+  background-color: var(--green1);
+  color: var(--light);
+  font-size: 20px;
+  margin: 0 50px;
+}

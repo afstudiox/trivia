@@ -1,0 +1,72 @@
+body {
+  background-color: var(--green3);
+}
+
+.container-login {
+  align-items: center;
+  background-color: var(--light);
+  border-radius: 18px;
+  box-shadow: 1px 25px 25px -4px rgba(30, 30, 60, 0.34);
+  height: 350px;
+  justify-content: center;
+  width: 450px;
+}
+
+.container-login label {
+  background-color: var(--light);
+  color: var(--green1);
+  font-size: 18px;
+  justify-content: center;
+  width: 80%;
+}
+
+.container-login input {
+  background-color: var(--light);
+  border: 1px solid var(--green2);
+  border-radius: 4px;
+  color: var(--green1);
+  display: block;
+  font-size: 16px;
+  margin-bottom: 12px;
+  margin-top: 4px;
+  padding: 8px;
+  width: 100%;
+}
+
+.container-login input:focus {
+  background-color: var(--green4);
+}
+
+.container-login button {
+  background-color: var(--green1);
+  border: none;
+  border-radius: 8px;
+  color: var(--light);
+  font-size: 20px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 8px;
+  width: 150px;
+}
+
+.container-login button:hover {
+  background-color: var(--accent-color1);
+  color: var(--green1);
+}
+
+.container-login button:disabled {
+  background-color: var(--green4);
+  color: var(--light);
+}
+
+.container-login a {
+  background-color: var(--light);
+  color: var(--green3);
+  font-size: 14px;
+  margin : 12px;
+}
+
+.container-login a:visited {
+  background-color: var(--light);
+  color: var(--green3);
+}
